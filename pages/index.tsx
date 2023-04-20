@@ -9,6 +9,7 @@ export default function TodoApp() {
   const [tasks, setTasks] = useState<ITask[]>([]); 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [charCount, setCharCount] = useState(0);
   const [priority, setPriority] = useState<Priority>(Priority.NonSelect);
   const [status, setStatus] = useState<Status>(Status.NonSelect);
   const [taskIdCounter, setTaskIdCounter] = useState<number>(0);
@@ -36,17 +37,24 @@ const displayedTasks = tasks.slice(startIndex, endIndex);
       if (!title) fields.push("title");
       if (priority === Priority.NonSelect) fields.push("Prioridad");
       if (status === Status.NonSelect) fields.push("Estado");
-      
+
       alert(`Completar los siguientes filtros: ${fields.join(", ")}`);
       return;
     }
+
+    if (description.length > 200) {
+      alert("La descripción no puede tener más de 200 caracteres");
+      return;
+    }
+
+    const limitedDescription = description.substring(0, 200);
 
     setTasks([
       ...tasks,
       {
         id: taskIdCounter, // id autogenerado
         title,
-        description,
+        description: limitedDescription,
         priority,
         status,
       },
@@ -56,10 +64,17 @@ const displayedTasks = tasks.slice(startIndex, endIndex);
     setPriority(Priority.NonSelect);
     setStatus(Status.NonSelect);
     setTaskIdCounter(taskIdCounter + 1); // incremento el id
+    setCharCount(0);
+  };
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setDescription(value);
+    setCharCount(value.length);
   };
 
 
-  const handleEditTask = (priority: Priority, status: Status, taskId: number): void => {
+  const editTask = (priority: Priority, status: Status, taskId: number): void => {
     setTasks(prevTasks => {
       return prevTasks.map(task => { 
         if (task.id === taskId) { // si es el id que se edita
@@ -73,7 +88,6 @@ const displayedTasks = tasks.slice(startIndex, endIndex);
       });
     });
   };
-
 
 function sortById(): void {
   const sortedTasks = [...tasks].sort((a, b) => {
@@ -158,7 +172,9 @@ function sortTasksByStatus(statusChoosen: Status): void {
 return (
   <div className="centerApp">
       <div className='appContainer'>
+      <header>
         <h1>ToDo App </h1>
+      </header>
         <div className="newTaskContainer">
           <div className="newTaskInputs">
             <input
@@ -168,14 +184,22 @@ return (
               onChange={(e) => setTitle(e.target.value)}
             />
 
-            <select value={priority} onChange={(e) => setPriority(e.target.value as Priority)}>
+            <select 
+              value={priority} 
+              onChange={(e) => setPriority(e.target.value as Priority)}
+              aria-label="Seleccionar prioridad"
+            >
               <option value="">Prioridad</option>
               <option value={Priority.Alta}>Alta</option>
               <option value={Priority.Media}>Media</option>
               <option value={Priority.Baja}>Baja</option>
             </select>
 
-            <select value={status} onChange={(e) => setStatus(e.target.value as Status)}>
+            <select 
+              value={status} 
+              onChange={(e) => setStatus(e.target.value as Status)}
+              aria-label="Seleccionar estado"
+              >
               <option value="">Estado</option>
               <option value={Status.Nueva}>Nueva</option>
               <option value={Status.EnProceso}>En proceso</option>
@@ -187,8 +211,11 @@ return (
             <textarea
               placeholder="Descripción"
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={handleDescriptionChange}
             ></textarea>
+          <div className={`charCounter ${charCount > 200 ? "overLimit" : ""}`}>
+            {charCount}/200
+          </div>
           </div>
         </div>
 
@@ -196,19 +223,17 @@ return (
           <button className="addTaskBtn" onClick={handleAddTask}>Crear Tarea</button>
         </div>
 
-
-
         <div className="filtersCcontainer">
-          <h4>Filtrar por: </h4>
+          <h4>Ordenar por: </h4>
           <div className="filtersSelects">
             <div className="styleSelect">
-              <p>Status</p>
+              <p>Estado</p>
               <select value={statusChoosen} onChange={(e) => {
                 const selectedStatus = e.target.value as Status;
                 sortTasksByStatus(selectedStatus);
                 setStatusChoosen(selectedStatus);
               }}>
-                <option value="">-</option>
+                <option value="" disabled={statusChoosen !== Status.NonSelect}>-</option> //para que no se pueda re-seleccionar
                 <option value={Status.Nueva}>Nueva</option>
                 <option value={Status.EnProceso}>En proceso</option>
                 <option value={Status.Finalizada}>Finalizada</option>
@@ -222,7 +247,7 @@ return (
                 sortTasksByPriority(selectedPriority);
                 setPriorityChoosen(selectedPriority);
               }}>
-                <option value="">-</option>
+                <option value="" disabled={priorityChoosen !== Priority.NonSelect}>-</option> //para que no se pueda re-seleccionar
                 <option value={Priority.Alta}>Alta</option>
                 <option value={Priority.Media}>Media</option>
                 <option value={Priority.Baja}>Baja</option>
@@ -238,8 +263,8 @@ return (
             <Task
               key={task.id}
               task={task}
-              editedData={(priority: Priority, status: Status) =>
-                handleEditTask(priority, status, task.id)
+              handleEditTask={(priority: Priority, status: Status) =>
+                editTask(priority, status, task.id)
               }
               onDelete={() => handleDeleteTask(task.id)}
             />

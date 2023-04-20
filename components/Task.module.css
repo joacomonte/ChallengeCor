@@ -1,10 +1,7 @@
 /* PD: Me siento mas a gusto con scss pero no supe como configurarlo rapido en NextJS. No queria complicarme */
 
-.task button {
-  font-size: 0.9rem;
-  width: 70px;
-  height: 30px;
-}
+/* .task button {
+} */
 
 
 .task {
@@ -49,11 +46,17 @@
     font-size: 14px;
   }
 
+  .descriptionContainer{
+    width: 100%;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
   .taskButtons{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 30px;
     
   }
   .saveAndClose{

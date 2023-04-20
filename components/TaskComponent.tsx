@@ -4,11 +4,11 @@ import { Priority, Status, ITask } from "../types/ITask";
 
 type TaskProps = {
   task: ITask;
-  editedData: (priority: Priority, status: Status, id: number) => void;
+  handleEditTask: (priority: Priority, status: Status, id: number) => void;
   onDelete: () => void;
 };
 
-const Task = ({ task, editedData, onDelete }: TaskProps) => {
+const Task = ({ task, handleEditTask, onDelete }: TaskProps) => {
   const [isEditable, setIsEditable] = useState(false);
   const [priority, setPriority] = useState(task.priority);
   const [status, setStatus] = useState(task.status);
@@ -18,7 +18,7 @@ const Task = ({ task, editedData, onDelete }: TaskProps) => {
   }
 
   const submitChanges = () => {
-    editedData(priority, status, task.id);
+    handleEditTask(priority, status, task.id);
   };
 
   const handleDeleteClick = () => {
@@ -32,14 +32,12 @@ const Task = ({ task, editedData, onDelete }: TaskProps) => {
             <>
             <p>Prioridad: </p>
             <select className= {thisStyle.customSelect} value={priority} onChange={(e) => setPriority(e.target.value as Priority)}>
-                <option value="">-</option>
                 <option value={Priority.Alta}>Alta</option>
                 <option value={Priority.Media}>Media</option>
                 <option value={Priority.Baja}>Baja</option>
             </select>
             <p>Prioridad: </p>
             <select className= {thisStyle.customSelect} value={status} onChange={(e) => setStatus(e.target.value as Status)}>
-                <option value="">-</option>
                 <option value={Status.Nueva}>Nueva</option>
                 <option value={Status.EnProceso}>En Proceso</option>
                 <option value={Status.Finalizada}>Finalizada</option>
@@ -57,10 +55,10 @@ const Task = ({ task, editedData, onDelete }: TaskProps) => {
         <h2></h2>
       </div>
       {task.description &&
-        <>
-        <p>Descripción:</p>
-        <p>{task.description}</p>
-        </>
+        <div className={thisStyle.descriptionContainer}>
+          <p>Descripción:</p>
+          <p>{task.description}</p>
+        </div>
       }
       <div className={thisStyle.taskButtons}>
         {isEditable ? (
