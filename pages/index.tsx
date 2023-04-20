@@ -192,13 +192,16 @@ return (
           </div>
         </div>
 
-        <button className="addTaskBtn" onClick={handleAddTask}>Crear Tarea</button>
+        <div className="moveToRight">
+          <button className="addTaskBtn" onClick={handleAddTask}>Crear Tarea</button>
+        </div>
+
 
 
         <div className="filtersCcontainer">
           <h4>Filtrar por: </h4>
           <div className="filtersSelects">
-            <div className="statusSelect">
+            <div className="styleSelect">
               <p>Status</p>
               <select value={statusChoosen} onChange={(e) => {
                 const selectedStatus = e.target.value as Status;
@@ -212,7 +215,7 @@ return (
               </select>
             </div>
 
-            <div className="prioritySelect">
+            <div className="styleSelect">
             <p>Prioridad</p>
               <select value={priorityChoosen} onChange={(e) => {
                 const selectedPriority = e.target.value as Priority;

@@ -29,7 +29,11 @@ select{
 }
 
 h4{
-  margin: 0;
+  margin: 5px 0;
+}
+
+p{
+  margin-top: 10px;
 }
 
 .centerApp{
@@ -45,8 +49,8 @@ h4{
     flex-direction: column;
     /* border: 1px solid black;
     border-radius: 10px; */
-    width: 400px;
-    padding: 40px
+    width: 450px;
+    position: relative;
 }
 
 .newTaskContainer{
@@ -59,6 +63,7 @@ h4{
     padding: 20px;
     width: 100%;
     gap: 20px;
+    box-sizing:border-box;
 }
 
 .newTaskInputs{
@@ -89,6 +94,13 @@ h4{
     font-size: 0.7rem;
   }
 
+  .moveToRight{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+  }
+  
+
   .addTaskBtn{
     margin-top: 15px;
     margin-bottom: 30px;
@@ -97,7 +109,6 @@ h4{
     font-size: 1rem;
     background-color: rgb(233, 233, 233);
     text-align: center;
-
   }
 
   .filtersCcontainer{
@@ -114,16 +125,18 @@ h4{
     align-items:self-end;
   }
 
-  .statusSelect{
+  .styleSelect{
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
   }
-  .prioritySelect{
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
+  .styleSelect p {
+    margin: 5px 0;
   }
+  .styleSelect select {
+    width: 150px;
+  }
+
 
   .clearBtn{
     padding: 0;

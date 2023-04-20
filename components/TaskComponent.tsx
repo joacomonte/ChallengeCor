@@ -56,8 +56,12 @@ const Task = ({ task, editedData, onDelete }: TaskProps) => {
         <p>Titulo: <b>{task.title}</b></p>
         <h2></h2>
       </div>
-      <p>Descripción:</p>
-      <p>{task.description}</p>
+      {task.description &&
+        <>
+        <p>Descripción:</p>
+        <p>{task.description}</p>
+        </>
+      }
       <div className={thisStyle.taskButtons}>
         {isEditable ? (
           <div className={thisStyle.saveAndClose}>
