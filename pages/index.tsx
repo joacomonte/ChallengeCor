@@ -2,6 +2,7 @@
 import {useState } from "react";
 import {ITask, Priority, Status, statusOrder, priorityOrder} from '../types/ITask';
 import Task from '../components/TaskComponent';
+import ReactPaginate from 'react-paginate';
 
 
 export default function TodoApp() {
@@ -13,6 +14,18 @@ export default function TodoApp() {
   const [taskIdCounter, setTaskIdCounter] = useState<number>(0);
   const [priorityChoosen, setPriorityChoosen] = useState<Priority>(Priority.NonSelect);
   const [statusChoosen, setStatusChoosen] = useState<Status>(Status.NonSelect);
+
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const handlePageChange = (selectedItem: { selected: number }) => {
+  setCurrentPage(selectedItem.selected);
+};
+
+const tasksPerPage = 2;
+const startIndex = currentPage * tasksPerPage;
+const endIndex = startIndex + tasksPerPage;
+
+const displayedTasks = tasks.slice(startIndex, endIndex);
 
 
   const handleAddTask = () => {
@@ -217,17 +230,39 @@ return (
           </div>
         </div>
 
-          {tasks && tasks.length > 0 ? (
-          tasks.map((task, id) => (
-          <Task key={task.id} task={task} editedData={(priority: Priority, status: Status) => handleEditTask(priority, status, task.id)} onDelete={() => handleDeleteTask(task.id)} />
+        {tasks.length > 0 ? (
+          displayedTasks.map((task, id) => (
+            <Task
+              key={task.id}
+              task={task}
+              editedData={(priority: Priority, status: Status) =>
+                handleEditTask(priority, status, task.id)
+              }
+              onDelete={() => handleDeleteTask(task.id)}
+            />
           ))
-            ) : (
-          <p>No tasks available</p>
-    )}
+        ) : (
+          <p className="noTasks" >No hay tareas pendientes, disfruta del día!</p>
+        )}
+
+        {tasks.length > 0 && (
+        <ReactPaginate
+          pageCount={Math.ceil(tasks.length / tasksPerPage)}
+          pageRangeDisplayed={3}
+          marginPagesDisplayed={2}
+          onPageChange={handlePageChange}
+          containerClassName="pagination"
+          activeClassName="active"
+          pageClassName="page-item"
+          previousLabel="Atras"
+          nextLabel="Siguiente"
+          breakClassName="break-me"
+          breakLabel="..."
+        />
+        )}
+
       </div>
   </div>
 
 );
 }
-
-{/* <button onClick={ () => sortTasksByPriority(Priority.Alta)}>sort by priority</button> */}

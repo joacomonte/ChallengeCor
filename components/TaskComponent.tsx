@@ -47,8 +47,8 @@ const Task = ({ task, editedData, onDelete }: TaskProps) => {
             </>
         ) : (
             <>
-            <p>Prioridad: {task.priority}</p>
-            <p>Estado: {task.status}</p>
+            <p>Prioridad: <b>{task.priority}</b></p>
+            <p>Estado: <b>{task.status}</b></p>
             </>
         )}
         </div>

@@ -7,9 +7,9 @@ export interface ITask {
 }
 
 export enum Status {
-  Nueva = "nueva",
-  EnProceso = "en proceso",
-  Finalizada = "finalizada",
+  Nueva = "Nueva",
+  EnProceso = "En Proceso",
+  Finalizada = "Finalizada",
   NonSelect = "Estado",
 }
 
@@ -21,9 +21,9 @@ export const statusOrder = {
 };
 
 export enum Priority {
-  Alta = "alta",
-  Media = "media",
-  Baja = "baja",
+  Alta = "Alta",
+  Media = "Media",
+  Baja = "Baja",
   NonSelect = "Prioridad",
 }
 

@@ -1,17 +1,16 @@
 /* PD: Me siento mas a gusto con scss pero no supe como configurarlo rapido en NextJS. No queria complicarme */
 
-.customSelect{
-  font-size: 0.7rem;
-  border: 1px solid black;
-  border-radius: 3px;
-  width: 100px;
-  height: 25px;
+.task button {
+  font-size: 0.9rem;
+  width: 70px;
+  height: 30px;
 }
+
 
 .task {
     border: 1px solid black;
     padding: 10px 15px;
-    margin: 30px;
+    margin: 20px;
     width: 100%;
     border-radius: 5px;
   }
@@ -65,9 +64,19 @@
 
   .saveBtn{
     background-color: lightgreen;
-    font-size: 1rem;
+    /* font-size: 1rem; */
+    border: transparent;
   }
   .deleteBtn{
     background-color: lightcoral;
-    font-size: 1rem;
+    /* font-size: 1rem; */
+    border: transparent;
+  }
+
+  .customSelect{
+    font-size: 0.7rem;
+    border: 1px solid black;
+    border-radius: 3px;
+    width: 100px;
+    height: 25px;
   }
