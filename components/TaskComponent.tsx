@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import thisStyle from "./Task.module.css"
 import { Priority, Status, ITask } from "../types/ITask";
 
-
-
 type TaskProps = {
   task: ITask;
   editedData: (priority: Priority, status: Status, id: number) => void;
@@ -33,18 +31,18 @@ const Task = ({ task, editedData, onDelete }: TaskProps) => {
         {isEditable ? (
             <>
             <p>Prioridad: </p>
-            <select value={priority} onChange={(e) => setPriority(e.target.value as Priority)}>
-            <option value="">-</option>
-            <option value={Priority.Alta}>Alta</option>
-            <option value={Priority.Media}>Media</option>
-            <option value={Priority.Baja}>Baja</option>
+            <select className= {thisStyle.customSelect} value={priority} onChange={(e) => setPriority(e.target.value as Priority)}>
+                <option value="">-</option>
+                <option value={Priority.Alta}>Alta</option>
+                <option value={Priority.Media}>Media</option>
+                <option value={Priority.Baja}>Baja</option>
             </select>
             <p>Prioridad: </p>
-            <select value={status} onChange={(e) => setStatus(e.target.value as Status)}>
-            <option value="">-</option>
-            <option value={Status.Nueva}>Nueva</option>
-            <option value={Status.EnProceso}>EnProceso</option>
-            <option value={Status.Finalizada}>Finalizada</option>
+            <select className= {thisStyle.customSelect} value={status} onChange={(e) => setStatus(e.target.value as Status)}>
+                <option value="">-</option>
+                <option value={Status.Nueva}>Nueva</option>
+                <option value={Status.EnProceso}>En Proceso</option>
+                <option value={Status.Finalizada}>Finalizada</option>
             </select>
             </>
         ) : (
@@ -55,15 +53,16 @@ const Task = ({ task, editedData, onDelete }: TaskProps) => {
         )}
         </div>
       <div className={thisStyle.title}>
-        <p>Titulo: <b>{task.name}</b></p>
+        <p>Titulo: <b>{task.title}</b></p>
         <h2></h2>
       </div>
-      <p>Descripción: {task.description}</p>
+      <p>Descripción:</p>
+      <p>{task.description}</p>
       <div className={thisStyle.taskButtons}>
         {isEditable ? (
           <div className={thisStyle.saveAndClose}>
             <button onClick={toggleIsEditable}>Cancelar</button>
-            <button onClick={() => {
+            <button className={thisStyle.saveBtn} onClick={() => {
                 submitChanges();
                 toggleIsEditable();
             }}>Guardar</button>
@@ -71,7 +70,7 @@ const Task = ({ task, editedData, onDelete }: TaskProps) => {
         ) : (
           <button onClick={toggleIsEditable}>Editar</button>
         )}
-        <button onClick={handleDeleteClick}>Eliminar</button>
+        <button className={thisStyle.deleteBtn} onClick={handleDeleteClick}>Eliminar</button>
       </div>
     </div>
   );
