@@ -245,7 +245,7 @@ return (
           <p className="noTasks" >No hay tareas pendientes, disfruta del día!</p>
         )}
 
-        {tasks.length > 0 && (
+        {tasks.length > 2 && (
         <ReactPaginate
           pageCount={Math.ceil(tasks.length / tasksPerPage)}
           pageRangeDisplayed={3}
