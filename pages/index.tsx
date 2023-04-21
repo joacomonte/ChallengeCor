@@ -162,10 +162,7 @@ export default function TodoApp() {
   // filtro los que no coinciden con el id
   const handleDeleteTask = (taskId: number): void => {
     setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId)); 
-    if (tasks.length === 0) {
-      setTaskIdCounter(0); //resetea el id counter
-    }
-  
+  }
   
 
 return (
