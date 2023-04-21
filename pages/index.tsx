@@ -185,7 +185,7 @@ return (
               onChange={(e) => setPriority(e.target.value as Priority)}
               aria-label="Seleccionar prioridad"
             >
-              <option value="">Prioridad</option>
+              <option value="" disabled={priority !== Priority.NonSelect}>Prioridad</option> //para que no se pueda re-seleccionar
               <option value={Priority.Alta}>Alta</option>
               <option value={Priority.Media}>Media</option>
               <option value={Priority.Baja}>Baja</option>
@@ -196,7 +196,7 @@ return (
               onChange={(e) => setStatus(e.target.value as Status)}
               aria-label="Seleccionar estado"
               >
-              <option value="">Estado</option>
+              <option value="" disabled={status !== Status.NonSelect}>Estado</option> //para que no se pueda re-seleccionar
               <option value={Status.Nueva}>Nueva</option>
               <option value={Status.EnProceso}>En proceso</option>
               <option value={Status.Finalizada}>Finalizada</option>
