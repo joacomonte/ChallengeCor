@@ -45,13 +45,13 @@ const Task = ({ task, handleEditTask, onDelete }: TaskProps) => {
             </>
         ) : (
             <>
-            <p>Prioridad: <b>{task.priority}</b></p>
-            <p>Estado: <b>{task.status}</b></p>
-            </>
+            {task.priority && (<p>Prioridad: <b>{task.priority}</b></p>)}
+            {task.status &&(<p>Estado: <b>{task.status}</b></p>)}
+            </> 
         )}
         </div>
       <div className={thisStyle.title}>
-        <p>Titulo: <b>{task.title}</b></p>
+        {task.title && (<p>Titulo: <b>{task.title}</b></p>)}
         <h2></h2>
       </div>
       {task.description &&
