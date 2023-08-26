@@ -1,9 +1,10 @@
 # Simple ToDo App
 
 ## Emphasis Areas
-- TypeScript
+
 - User Experience (UX)
 - Rapid Development
+- TypeScript
   
 ## Summary
 
